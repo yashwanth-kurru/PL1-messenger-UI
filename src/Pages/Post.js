@@ -2,8 +2,19 @@ import React, { useEffect, useState } from 'react'
 import Typography from '@mui/material/Typography';
 import CardComp from '../Components/CardComp';
 import { Container, Grid } from "@mui/material/"
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 
-function Notes() {
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+
+function Post() {
     const [Notes, setNotes] = useState([]);
     const menuItems = [
         {
@@ -43,19 +54,35 @@ function Notes() {
     }
 
     return <div>
-        <Typography sx={{ marginTop: 3 }} variant="h4" color="textSecondary" component="h3" align="center">
+        <Typography sx={{ marginTop: 1 }} variant="h4" color="textSecondary" component="h3" align="center">
             Notes List
         </Typography>
-        <Container sx={{ marginTop: 5 }}>
-            <Grid container direction="row" spacing={3}>
-                {Notes.map(note => (
-                    <Grid item xs={12} md={6} lg={4} key={note.id}>
-                        <CardComp data={note} handleDelete={handleDelete} />
-                    </Grid>
-                ))}
+       
+
+        <Grid container spacing={2}   direction="row"
+            justifyContent="center"
+            alignItems="flex-start" >
+
+            <Grid item xs={3} >
+                        
+                <Item>xs=4</Item>
+                    
             </Grid>
-        </Container>
+
+            <Grid sx={{marginLeft : 2}} item xs={12} md={6} lg={5} >        
+                {Notes.map(note => (
+                            <CardComp key={note.id} data={note} handleDelete={handleDelete} />
+                    ))}
+            </Grid>
+
+            <Grid item xs={3} >
+            
+                <Item>xs=4</Item>
+               
+            </Grid>
+
+        </Grid>
     </div >;
 }
 
-export default Notes;
+export default Post;

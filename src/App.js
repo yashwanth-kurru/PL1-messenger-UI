@@ -1,9 +1,13 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import Notes from './Pages/Notes';
-import CreateNote from './Pages/CreateNote';
+import Post from './Pages/Post';
+import CreateNote from './Pages/CreatePost';
 import Layouts from './Components/Layouts';
 import Login from './Pages/Login';
+import Users from './Pages/Users'
+import Channels from './Pages/Channels'
+import Categories from './Pages/Categories'
+import Profile from './Pages/Profile'
 
 function App() {
 
@@ -17,8 +21,12 @@ function App() {
       <Router>
         <Routes>
           <Route element={< RequireAuth />} >
-            <Route exact path="/notes" element={<Notes />} />
+            <Route exact path="/dashboard" element={<Post />} />
             <Route exact path="/create" element={<CreateNote />} />
+            <Route exact path="/users" element={<Users />} />
+            <Route exact path="/channels" element={<Channels />} />
+            <Route exact path="/categories" element={<Categories />} />
+            <Route exact path="/profile" element={<Profile />} />
           </Route>
           <Route exact path="/" element={<Login />} />
         </Routes>

@@ -21,24 +21,35 @@ const drawerWidth = 240;
 
 const menuItems = [
     {
-        name: "Notes",
+        name: "Posts",
         icon: <NotesRoundedIcon color="primary" />,
-        path: '/'
+        path: '/dashboard'
     },
     {
-        name: "Create Note",
+        name: "Create Post",
         icon: <AddCircleOutlineRoundedIcon color="primary" />,
         path: '/create'
     },
     {
-        name: "Profile",
+        name: "Users",
         icon: <PersonRoundedIcon color="primary" />,
-        path: ''
+        path: '/users'
     },
     {
-        name: "Settings",
+        name: "Channels",
+        icon: <PersonRoundedIcon color="primary" />,
+        path: '/channels'
+    },
+    {
+        name: "Categories",
         icon: <Brightness5RoundedIcon color="primary" />,
-        path: ''
+        path: '/categories'
+    },
+    {
+        name : "Profile",
+        icon: <PersonRoundedIcon color="primary" />,
+        path: '/profile'
+
     }
 ]
 
