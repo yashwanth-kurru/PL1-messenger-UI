@@ -1,7 +1,17 @@
 import React from 'react';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
-
+import EditableTable from './Table/EditableTable';
+import channelFields from './Table/channelFields';
+const defaultData = [
+    {
+      "channelName":"Channel1",
+      "channelDescription":"channelDescription is very nice"
+    }
+  ];
 const Channels = () => {
+    const getData = row => {
+        console.log(row, "rows data");
+      };
     return ( 
         <Container size="sm">
         <Typography
@@ -10,7 +20,13 @@ const Channels = () => {
               component="h4"
               gutterBottom
         >Channels</Typography>
-    </Container>
+         <EditableTable
+        initWithoutHead
+        defaultData={defaultData}
+        getData={getData}
+        fieldsArr={channelFields}
+        />
+        </Container>
      );
 }
  

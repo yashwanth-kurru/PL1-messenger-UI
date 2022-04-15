@@ -1,14 +1,14 @@
 import React from 'react';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import EditableTable from './Table/EditableTable';
-import categoryFields from './Table/categoryFields';
+import adminFields from './Table/adminFields';
 const defaultData = [
     {
-      "categoryName":"category 1",
-      "categoryDescription":"categoryDescription is very nice"
+      "adminName":"admin 1",
+      "email":"admin1@maersk.com"
     }
   ];
-const Categories = () => {
+const Admin = () => {
     const getData = row => {
         console.log(row, "rows data");
       };
@@ -19,15 +19,15 @@ const Categories = () => {
               color="textSecondary"
               component="h4"
               gutterBottom
-        >Categories</Typography>
+        >Admins</Typography>
         <EditableTable
         initWithoutHead
         defaultData={defaultData}
         getData={getData}
-        fieldsArr={categoryFields}
+        fieldsArr={adminFields}
         />
     </Container>
-     );
+    ); 
 }
  
-export default Categories;
+export default Admin;

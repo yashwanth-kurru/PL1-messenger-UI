@@ -8,6 +8,7 @@ import Users from './Pages/Users'
 import Channels from './Pages/Channels'
 import Categories from './Pages/Categories'
 import Profile from './Pages/Profile'
+import Admin from './Pages/Admin';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
             <Route exact path="/channels" element={<Channels />} />
             <Route exact path="/categories" element={<Categories />} />
             <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/admins" element={<Admin />} />
           </Route>
           <Route exact path="/" element={<Login />} />
         </Routes>

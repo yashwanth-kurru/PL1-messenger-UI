@@ -46,6 +46,11 @@ const menuItems = [
         path: '/categories'
     },
     {
+        name: "Admins",
+        icon: <Brightness5RoundedIcon color="primary" />,
+        path: '/admins'
+    },
+    {
         name : "Profile",
         icon: <PersonRoundedIcon color="primary" />,
         path: '/profile'

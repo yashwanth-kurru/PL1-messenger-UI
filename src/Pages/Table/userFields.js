@@ -26,6 +26,19 @@ const fieldsArr = [
       error: "Haha"
     },
     {
+      label: "Email",
+      name: "email",
+      validation: e => {
+        const name = e.target.value;
+        if (name.length > 6) {
+          return false;
+        } else {
+          return true;
+        }
+      },
+      error: "Haha"
+    },
+    {
       label: "RelationShip",
       selectMessage: "Select",
       name: "relationShip",

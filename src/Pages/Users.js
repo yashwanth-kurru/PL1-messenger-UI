@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import EditableTable from './Table/EditableTable';
-import fieldsArr from './Table/feilds';
+import fieldsArr from './Table/userFields';
 
 const defaultData = [
     {
       name: "Yash",
       age: "23",
+      email:"yash@maersk.com",
       relationShip: "haqSeSingle"
     }
   ];
@@ -15,7 +16,6 @@ const Users = () => {
     const getData = row => {
         console.log(row, "rows data");
       };
-      
     return ( 
         <Container size="sm">
             <Typography

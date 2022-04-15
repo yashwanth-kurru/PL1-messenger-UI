@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import { useNavigate } from 'react-router-dom';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
         border: 0,
@@ -13,7 +19,32 @@ const useStyles = makeStyles({
         height: 48,
         padding: '0 30px',
     },
-});
+}));
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [
+    'Oliver Hansen',
+    'Van Henry',
+    'April Tucker',
+    'Ralph Hubbard',
+    'Omar Alexander',
+    'Carlos Abbott',
+    'Miriam Wagner',
+    'Bradley Wilkerson',
+    'Virginia Andrews',
+    'Kelly Snyder',
+  ];
+  
 
 const CreateNote = () => {
     const classes = useStyles();
@@ -23,6 +54,24 @@ const CreateNote = () => {
     const [terr, setTer] = useState(false);
     const [derr, setDerr] = useState(false);
     const history = useNavigate();
+
+    const [age, setAge] = React.useState('');
+    const [personName, setPersonName] = React.useState([]);
+
+    const multihandleChange = (event) => {
+        const {
+          target: { value },
+        } = event;
+        setPersonName(
+          // On autofill we get a stringified value.
+          typeof value === 'string' ? value.split(',') : value,
+        );
+      };
+
+
+    const handleChange = (event) => {
+        setAge(event.target.value);
+    };
 
 
     const handleSubmit = (e) => {
@@ -65,7 +114,7 @@ const CreateNote = () => {
                 <TextField
                     sx={{ display: 'block', marginTop: 3 }}
                     onChange={(e) => setTitle(e.target.value)}
-                    label="Note Title"
+                    label="Post Title"
                     variant="outlined"
                     color="secondary"
                     fullWidth
@@ -75,7 +124,7 @@ const CreateNote = () => {
                 <TextField
                     sx={{ display: 'block', marginTop: 3, marginBottom: 3 }}
                     onChange={(e) => setDesc(e.target.value)}
-                    label="Description"
+                    label="Message"
                     variant="outlined"
                     color="secondary"
                     multiline
@@ -84,15 +133,44 @@ const CreateNote = () => {
                     required
                     error={derr}
                 />
-                <FormControl sx={{ display: 'block', marginTop: 3, marginBottom: 3 }}>
-                    <FormLabel  >Category</FormLabel>
-                    <RadioGroup value={category} onChange={(e) => setCategory(e.target.value)}>
-                        <FormControlLabel value="money" control={<Radio />} label="Money" />
-                        <FormControlLabel value="todos" control={<Radio />} label="Todos" />
-                        <FormControlLabel value="reminders" control={<Radio />} label="Reminders" />
-                        <FormControlLabel value="work" control={<Radio />} label="Work" />
-                    </RadioGroup>
+                <FormControl variant="outlined" fullWidth  sx={{ marginTop: 3, marginBottom: 3 }} >
+                    <InputLabel id="demo-simple-select-outlined-label">Category</InputLabel>
+                    <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={age}
+                    onChange={handleChange}
+                    label="Category"
+                    >
+                    <MenuItem value="">
+                        <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                    </Select>
                 </FormControl>
+
+            <FormControl fullWidth  sx={{ marginBottom: 3 }}>
+                <InputLabel id="demo-multiple-checkbox-label">Channels</InputLabel>
+                <Select
+                labelId="demo-multiple-checkbox-label"
+                id="demo-multiple-checkbox"
+                multiple
+                value={personName}
+                onChange={multihandleChange}
+                input={<OutlinedInput label="Tag" />}
+                renderValue={(selected) => selected.join(', ')}
+                MenuProps={MenuProps}
+                >
+                {names.map((name) => (
+                    <MenuItem key={name} value={name}>
+                    <Checkbox checked={personName.indexOf(name) > -1} />
+                    <ListItemText primary={name} />
+                    </MenuItem>
+                ))}
+                </Select>
+            </FormControl>
 
                 <Button className={classes.root} color="primary" variant="contained" type="submit">Submit</Button>
             </form>
