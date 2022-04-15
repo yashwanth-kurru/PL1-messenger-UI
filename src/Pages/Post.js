@@ -65,7 +65,7 @@ function Post() {
 
             <Grid item xs={3} >
                         
-                <Item>xs=4</Item>
+                <Item>user or admin details</Item>
                     
             </Grid>
 
@@ -77,7 +77,7 @@ function Post() {
 
             <Grid item xs={3} >
             
-                <Item>xs=4</Item>
+                <Item>Application details</Item>
                
             </Grid>
 

@@ -16,6 +16,8 @@ import { makeStyles } from '@mui/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
+import Avatar from '@mui/material/Avatar';
+import maersk from '../assets/maersk.png';
 
 const drawerWidth = 240;
 
@@ -86,10 +88,11 @@ export default function BasicDrawer() {
             <CssBaseline />
             <AppBar
                 position="fixed"
-                sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
+                sx={{backgroundColor: '#42b0d5',width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
                 <Toolbar >
+                {/* <img sx={{width:1}} src={maersk} /> */}
                     <Typography variant="h6" noWrap component="div">
-                        YOUR INSIGHTS
+                        MAERSK
                     </Typography>
                 </Toolbar>
             </AppBar>
