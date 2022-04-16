@@ -75,7 +75,15 @@ const useStyles = makeStyles(() => {
             flexgrow: 1
         },
         title: {
-            padding: 15
+            padding: 15,
+            textDecoration: 'underline',
+            textDecoration:'overline'
+        },
+        imgBorder :{
+            border: '2px solid white',
+            borderRadius: '10px',
+            marginLeft: '-10px',
+            marginRight: '10px'
         }
     }
 })
@@ -90,7 +98,7 @@ export default function BasicDrawer() {
                 position="fixed"
                 sx={{backgroundColor: '#42b0d5',width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
                 <Toolbar >
-                {/* <img sx={{width:1}} src={maersk} /> */}
+                <img width={40} height={40} className={classes.imgBorder} src={maersk} />
                     <Typography variant="h6" noWrap component="div">
                         MAERSK
                     </Typography>
@@ -104,7 +112,7 @@ export default function BasicDrawer() {
                 anchor="left">
                 <div>
                     <Typography variant="h5" className={classes.title} >
-                        Ninja Notes
+                        Messenger
                     </Typography>
                 </div>
 

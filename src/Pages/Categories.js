@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import EditableTable from './Table/EditableTable';
 import categoryFields from './Table/categoryFields';
+import { GetCategoriesData } from '../API/service';
 const defaultData = [
     {
       "categoryName":"category 1",
@@ -9,9 +10,23 @@ const defaultData = [
     }
   ];
 const Categories = () => {
+
+  const [category,setcategory] = useState([{}]);
+
+  useEffect(() => {
+    GetCategoriesData()
+    .then((categories) => {
+      console.log(categories.data)
+       setcategory(categories.data)
+    })
+    .catch((error) => console.log(error))
+  }, []);
+
     const getData = row => {
         console.log(row, "rows data");
-      };
+      }
+      
+
     return ( 
         <Container size="sm">
         <Typography
@@ -20,12 +35,12 @@ const Categories = () => {
               component="h4"
               gutterBottom
         >Categories</Typography>
-        <EditableTable
+       {category.length > 1 ?  <EditableTable
         initWithoutHead
-        defaultData={defaultData}
+        defaultData={category}
         getData={getData}
         fieldsArr={categoryFields}
-        />
+        />: null}
     </Container>
      );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import {GetCategoriesData,GetChannelsData} from '../API/service'
 
 const useStyles = makeStyles((theme)=>({
     root: {
@@ -47,30 +48,59 @@ const names = [
   
 
 const CreateNote = () => {
+
+    const [category,setcategory] = useState([{}]);
+    const [channels,setChannels] = useState([{}]);
+
+  useEffect(() => {
+    GetCategoriesData()
+    .then((categories) => {
+      console.log(categories.data)
+       setcategory(categories.data)
+    })
+    .catch((error) => console.log(error))
+
+    GetChannelsData()
+    .then((channels) => {
+      console.log(channels.data)
+      setChannels(channels.data)
+    })
+    .catch((error) => console.log(error))
+  }, []);
+
+
     const classes = useStyles();
     const [Title, setTitle] = useState('')
     const [Desc, setDesc] = useState('')
-    const [category, setCategory] = useState('money')
     const [terr, setTer] = useState(false);
     const [derr, setDerr] = useState(false);
     const history = useNavigate();
 
-    const [age, setAge] = React.useState('');
-    const [personName, setPersonName] = React.useState([]);
+    
+    const [channelsSelected, setChannelsSelected] =useState([]);
+    const [catselect, setCatselect] =useState('');
+    // const [finalchannel, setfinalchannel] = useState([]);
 
     const multihandleChange = (event) => {
         const {
           target: { value },
         } = event;
-        setPersonName(
-          // On autofill we get a stringified value.
-          typeof value === 'string' ? value.split(',') : value,
-        );
+        console.log(value);
+        setChannelsSelected(value);
+        // var arr = [];
+        // value.map(val=>{
+        //    var sel = channels
+        //             .filter(channel => channel.channelName === val)
+        //             .map(channel => channel.channelId)
+        //     arr.push(...sel)
+        // })
+        // setfinalchannel(arr);
+        // console.log(arr)
+       
       };
 
-
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setCatselect(event.target.value);
     };
 
 
@@ -107,7 +137,7 @@ const CreateNote = () => {
                 component="h4"
                 gutterBottom
             >
-                Create a New Note
+                Create a New Post...
             </Typography>
 
             <form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -138,16 +168,13 @@ const CreateNote = () => {
                     <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={age}
+                    value={catselect}
                     onChange={handleChange}
                     label="Category"
                     >
-                    <MenuItem value="">
-                        <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {category.map(cat => (
+                         <MenuItem value={cat.categoryId}>{cat.categoryName}</MenuItem>
+                    ))}
                     </Select>
                 </FormControl>
 
@@ -157,16 +184,16 @@ const CreateNote = () => {
                 labelId="demo-multiple-checkbox-label"
                 id="demo-multiple-checkbox"
                 multiple
-                value={personName}
+                value={channelsSelected}
                 onChange={multihandleChange}
                 input={<OutlinedInput label="Tag" />}
                 renderValue={(selected) => selected.join(', ')}
                 MenuProps={MenuProps}
                 >
-                {names.map((name) => (
-                    <MenuItem key={name} value={name}>
-                    <Checkbox checked={personName.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
+                {channels.map((channel) => (
+                    <MenuItem key={channel.channelId} value={channel.channelName}>
+                    <Checkbox checked={channelsSelected.indexOf(channel.channelName) > -1} />
+                    <ListItemText primary={channel.channelName} />
                     </MenuItem>
                 ))}
                 </Select>

@@ -1,4 +1,17 @@
 const categoryFields = [
+  {
+    label: "Category Id",
+        name: "categoryId",
+        validation: e => {
+            const name = e.target.value;
+            if (name.length > 6) {
+              return false;
+            } else {
+              return true;
+            }
+          },
+          error: "Enter a good name"
+  },
     {
         label: "Category Name",
         name: "categoryName",

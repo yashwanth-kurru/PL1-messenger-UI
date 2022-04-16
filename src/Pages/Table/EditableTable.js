@@ -286,7 +286,7 @@ class EditableTable extends React.Component {
     isEditing: false,
     editingIndex: null
   };
-
+  
   handleSave = row => {
     if (this.state.isEditing) {
       const arr = this.state.allRowsData.map((item, i) => {
@@ -370,6 +370,7 @@ class EditableTable extends React.Component {
       ...fieldsArr.map(item => ({ label: item.label, name: item.name })),
       { label: "Actions", name: "actions" }
     ];
+    console.log(headRow);
     const showHeader =
       initWithoutHead && !allRowsData.length && !isAdding ? false : true;
     return (
