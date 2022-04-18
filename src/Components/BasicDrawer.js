@@ -9,6 +9,7 @@ import NotesRoundedIcon from '@mui/icons-material/NotesRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import Brightness5RoundedIcon from '@mui/icons-material/Brightness5Rounded';
+import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useNavigate } from 'react-router-dom';
@@ -18,6 +19,10 @@ import Toolbar from '@mui/material/Toolbar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Avatar from '@mui/material/Avatar';
 import maersk from '../assets/maersk.png';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import BackupTableIcon from '@mui/icons-material/BackupTable';
+import SourceIcon from '@mui/icons-material/Source';
 
 const drawerWidth = 240;
 
@@ -34,22 +39,22 @@ const menuItems = [
     },
     {
         name: "Users",
-        icon: <PersonRoundedIcon color="primary" />,
+        icon: <PeopleAltIcon color="primary" />,
         path: '/users'
     },
     {
         name: "Channels",
-        icon: <PersonRoundedIcon color="primary" />,
+        icon: <BackupTableIcon color="primary" />,
         path: '/channels'
     },
     {
         name: "Categories",
-        icon: <Brightness5RoundedIcon color="primary" />,
+        icon: <SourceIcon color="primary" />,
         path: '/categories'
     },
     {
         name: "Admins",
-        icon: <Brightness5RoundedIcon color="primary" />,
+        icon: <AssignmentIndIcon color="primary" />,
         path: '/admins'
     },
     {
@@ -91,6 +96,12 @@ const useStyles = makeStyles(() => {
 export default function BasicDrawer() {
     const classes = useStyles();
     const navigate = useNavigate();
+
+    const logout = ()=>{
+        localStorage.removeItem('payLoad');
+        navigate('/');
+    }
+
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -124,6 +135,10 @@ export default function BasicDrawer() {
                             <ListItemText primary={menu.name} className={classes.menus} />
                         </ListItem>
                     ))}
+                     <ListItem button  onClick={() => logout()}>
+                            <ListItemIcon ><ArrowCircleLeftIcon color="primary" /></ListItemIcon>
+                            <ListItemText primary="Logout" className={classes.menus} />
+                        </ListItem>
                 </List>
                 <Divider />
 

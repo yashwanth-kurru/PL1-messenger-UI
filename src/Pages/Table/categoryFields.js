@@ -2,6 +2,7 @@ const categoryFields = [
   {
     label: "Category Id",
         name: "categoryId",
+        disabled: true,
         validation: e => {
             const name = e.target.value;
             if (name.length > 6) {

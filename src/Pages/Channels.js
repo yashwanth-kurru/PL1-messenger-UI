@@ -2,7 +2,7 @@ import React,{ useState, useEffect} from 'react';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import EditableTable from './Table/EditableTable';
 import channelFields from './Table/channelFields';
-import { GetChannelsData } from '../API/service';
+import { GetChannelsData, UpdateChannelData, deleteChannelData } from '../API/service';
 const defaultData = [
     {
       "channelName":"Channel1",
@@ -22,9 +22,19 @@ const Channels = () => {
       .catch((error) => console.log(error))
     },[]);
 
-    const getData = row => {
+    const editData = async ( row) => {
         console.log(row, "rows data");
+        let res = await UpdateChannelData(row);
+        console.log(res);
       };
+
+      const deleteData = async (row) => {
+        console.log("deleting", row)
+        let res= await deleteChannelData(row);
+        console.log(res);
+      }
+      
+
     return ( 
         <Container size="sm">
         <Typography
@@ -36,7 +46,8 @@ const Channels = () => {
          {channels.length > 1 ? <EditableTable
         initWithoutHead
         defaultData={channels}
-        getData={getData}
+        getData={editData}
+        deleteData={deleteData}
         fieldsArr={channelFields}
         /> :null} 
         </Container>

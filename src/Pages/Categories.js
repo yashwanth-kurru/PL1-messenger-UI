@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import { Container, Typography, TextField, Button, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material/';
 import EditableTable from './Table/EditableTable';
 import categoryFields from './Table/categoryFields';
-import { GetCategoriesData } from '../API/service';
+import { GetCategoriesData, UpdateCategoryData, deleteCategoryData } from '../API/service';
 const defaultData = [
     {
       "categoryName":"category 1",
@@ -22,8 +22,17 @@ const Categories = () => {
     .catch((error) => console.log(error))
   }, []);
 
-    const getData = row => {
+    const editData = async (row) => {
         console.log(row, "rows data");
+        let res = await UpdateCategoryData(row);
+        console.log(res);
+      }
+    
+    
+      const deleteData = async (row) => {
+        console.log("deleting", row)
+        let res= await deleteCategoryData(row);
+        console.log(res);
       }
       
 
@@ -38,7 +47,8 @@ const Categories = () => {
        {category.length > 1 ?  <EditableTable
         initWithoutHead
         defaultData={category}
-        getData={getData}
+        getData={editData}
+        deleteData={deleteData}
         fieldsArr={categoryFields}
         />: null}
     </Container>

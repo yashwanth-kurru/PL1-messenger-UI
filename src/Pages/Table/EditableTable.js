@@ -10,6 +10,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField
 } from "@mui/material";
 import {withStyles} from "@mui/styles";
 import classNames from "classnames";
@@ -135,13 +136,19 @@ const EditableRow = ({
   const [rowData, setRowData] = useState(
     editData ? Object.assign({}, initializeObj, editData) : initializeObj
   );
+  const [currentEdited, setCurrentEdited] = useState({});
+
   const handleSave = () => {
-    props.handleSave(rowData);
+    console.log(currentEdited)
+    props.handleSave(currentEdited);
   };
   const handleOnChange = e => {
+    console.log(e)
     const updatedData = Object.assign({}, rowData, {
       [e.target.name]: e.target.value
     });
+    console.log(updatedData);
+    setCurrentEdited(updatedData);
     setRowData(updatedData);
   };
   const handleCancel = () => {
@@ -180,7 +187,7 @@ const EditableRow = ({
                 validation={item.validation}
               />
             ) : (
-              <Input
+              <TextField
                 columnDataArr={(allRowsData || []).map(
                   obj => obj.rowData[item.name]
                 )}
@@ -192,8 +199,9 @@ const EditableRow = ({
                 value={rowData[item.name]}
                 item={item.name}
                 childHasError={bool => setRowHasError(bool)}
-                error={item.error}
-                validation={item.validation}
+                // error={item.error}
+                // validation={item.validation}
+                disabled={item.disabled}
               />
             )}
           </TableCell>
@@ -288,6 +296,7 @@ class EditableTable extends React.Component {
   };
   
   handleSave = row => {
+    this.props.getData(row);
     if (this.state.isEditing) {
       const arr = this.state.allRowsData.map((item, i) => {
         if (i === this.state.editingIndex) {
@@ -299,7 +308,7 @@ class EditableTable extends React.Component {
       });
       this.setState(
         { allRowsData: arr, editingIndex: null, isEditing: false },
-        this.setToParent
+       
       );
     } else {
       this.setState(
@@ -310,7 +319,7 @@ class EditableTable extends React.Component {
           ],
           isAdding: false
         },
-        this.setToParent
+     
       );
     }
   };
@@ -338,11 +347,12 @@ class EditableTable extends React.Component {
 
   handleDeleteRow = index => {
     const arr = this.state.allRowsData.filter((item, i) => i !== index);
+    const obj = this.state.allRowsData.filter((item,i) => i == index);
+    this.props.deleteData(obj[0].rowData);
     this.setState(
       {
         allRowsData: arr
       },
-      this.setToParent
     );
   };
   handleEditRow = index => {
@@ -370,7 +380,6 @@ class EditableTable extends React.Component {
       ...fieldsArr.map(item => ({ label: item.label, name: item.name })),
       { label: "Actions", name: "actions" }
     ];
-    console.log(headRow);
     const showHeader =
       initWithoutHead && !allRowsData.length && !isAdding ? false : true;
     return (

@@ -9,6 +9,7 @@ import Channels from './Pages/Channels'
 import Categories from './Pages/Categories'
 import Profile from './Pages/Profile'
 import Admin from './Pages/Admin';
+import AuthState from './Context/AuthState';
 
 function App() {
 
@@ -18,7 +19,8 @@ function App() {
 
 
   return (
-    <div className="App">
+  <AuthState>
+      <div className="App">
       <Router>
         <Routes>
           <Route element={< RequireAuth />} >
@@ -34,6 +36,7 @@ function App() {
         </Routes>
       </Router>
     </div>
+  </AuthState>
   );
 }
 

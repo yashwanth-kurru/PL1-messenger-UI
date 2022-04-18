@@ -2,6 +2,7 @@ const channelFields = [
     {
       label: "Channel Id",
       name: "channelId",
+      disabled: true,
       validation: e => {
           const name = e.target.value;
           if (name.length > 6) {

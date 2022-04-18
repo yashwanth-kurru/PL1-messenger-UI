@@ -2,6 +2,7 @@ const adminFields = [
   {
     label: 'Admin Id',
     name : "adminId",
+    disabled: true,
     validation: e => {
         const name = e.target.value;
         if (name.length > 6) {
